@@ -18,28 +18,28 @@ class Linkedlist:
 
     def getTotalIndex(self):
         index = -1
-        tempNode = self.head
-        while tempNode is not None:
+        currentNode = self.head
+        while currentNode is not None:
             index = index + 1
-            tempNode = tempNode.next
+            currentNode = currentNode.next
         return index
 
     def getLength(self):
         length = 0
-        tempNode = self.head
-        while tempNode is not None:
+        currentNode = self.head
+        while currentNode is not None:
             length = length + 1
-            tempNode = tempNode.next
+            currentNode = currentNode.next
         return length
 
     def printList(self):
         if self.isEmpty():
             print("List is empty")
             return
-        tempNode = self.head
-        while(tempNode is not None):
-            print(tempNode.data)
-            tempNode = tempNode.next
+        currentNode = self.head
+        while(currentNode is not None):
+            print(currentNode.data)
+            currentNode = currentNode.next
 
     def addToFront(self, data):
         newNode = Node(data)
@@ -53,10 +53,10 @@ class Linkedlist:
         if self.head is None:
             self.head = Node(data)
             return
-        tempNode = self.head
-        while tempNode.next is not None:
-            tempNode = tempNode.next
-        tempNode.next = Node(data)
+        currentNode = self.head
+        while currentNode.next is not None:
+            currentNode = currentNode.next
+        currentNode.next = Node(data)
 
     def removeHead(self):
         if self.isEmpty():
@@ -72,99 +72,115 @@ class Linkedlist:
             print("List is empty")
             return
         newNode = Node(data)
-        tempNode = self.head
+        currentNode = self.head
         nextNode = None
-        while tempNode is not None:
-            if tempNode.data == searchValue:
-                if(tempNode.next):
-                    nextNode = tempNode.next
-                    tempNode.next = newNode
+        while currentNode is not None:
+            if currentNode.data == searchValue:
+                if(currentNode.next):
+                    nextNode = currentNode.next
+                    currentNode.next = newNode
                     newNode.next = nextNode
                     return
-                tempNode.next = newNode
+                currentNode.next = newNode
                 return
-            tempNode = tempNode.next
+            currentNode = currentNode.next
         print(f'could not find value: {searchValue}')
 
     def addNodeBeforeValue(self, data, searchValue):
         if self.isEmpty():
             print("List is empty")
             return
-        tempNode = self.head
+        currentNode = self.head
         newNode = Node(data)
         prevNode = None
-        while tempNode is not None:
-            if tempNode.data == searchValue:
-                if(tempNode == self.head):
+        while currentNode is not None:
+            if currentNode.data == searchValue:
+                if(currentNode == self.head):
                     self.head = newNode
-                    newNode.next = tempNode
+                    newNode.next = currentNode
                     return
                 prevNode.next = newNode
-                newNode.next = tempNode
+                newNode.next = currentNode
                 return
-            prevNode = tempNode
-            tempNode = tempNode.next
+            prevNode = currentNode
+            currentNode = currentNode.next
         print(f'could not find value: {searchValue}')
 
     def addNodeAtIndex(self, data, searchIndex):
         if self.isEmpty():
             print('List is empty')
             return
-        tempNode = self.head
+        currentNode = self.head
         newNode = Node(data)
         index = 0
         prevNode = None
         while index <= searchIndex:
-            if tempNode is None:
+            if currentNode is None:
                 print(f'Index is out of bounds for: {searchIndex}')
                 return
             if searchIndex == 0:
                 self.head = newNode
-                newNode.next = tempNode
+                newNode.next = currentNode
                 return
-            if(tempNode.next is None and index == searchIndex):
-                tempNode.next = newNode
+            if(currentNode.next is None and index == searchIndex):
+                currentNode.next = newNode
                 return
             if index == searchIndex:
                 prevNode.next = newNode
-                newNode.next = tempNode
+                newNode.next = currentNode
                 return
 
             index = index + 1
-            prevNode = tempNode
-            tempNode = tempNode.next
+            prevNode = currentNode
+            currentNode = currentNode.next
 
     def getMaxValue(self):
         if self.isEmpty():
             return None
-        tempNode = self.head
-        maxValue = tempNode.data
-        while tempNode.next is not None:
-            if tempNode.data > maxValue:
-                maxValue = tempNode.data
-            tempNode = tempNode.next
+        currentNode = self.head
+        maxValue = currentNode.data
+        while currentNode.next is not None:
+            if currentNode.data > maxValue:
+                maxValue = currentNode.data
+            currentNode = currentNode.next
         return maxValue
 
     def getMinValue(self):
         if self.isEmpty():
             return None
-        tempNode = self.head
-        minValue = tempNode.data
-        while tempNode.next is not None:
-            if tempNode.data < minValue:
-                minValue = tempNode.data
-            tempNode = tempNode.next
+        currentNode = self.head
+        minValue = currentNode.data
+        while currentNode.next is not None:
+            if currentNode.data < minValue:
+                minValue = currentNode.data
+            currentNode = currentNode.next
         return minValue
 
     def getAvgValue(self):
         if self.isEmpty():
             return 0
-        tempNode = self.head
+        currentNode = self.head
         total = 0
-        while tempNode is not None:
-            total = total + tempNode.data
-            tempNode = tempNode.next
+        while currentNode is not None:
+            total = total + currentNode.data
+            currentNode = currentNode.next
         return total / self.getLength()
+
+    def reverse(self):
+        if self.isEmpty():
+            print("List is empty")
+            return
+        currentNode = self.head
+        nextNode = None
+        prevNode = None
+        while currentNode.next is not None:
+            currentNode = currentNode.next
+        while currentNode != self.head:
+            nextNode = self.head.next
+            currentNode.next = self.head
+            self.head.next = prevNode
+            prevNode = self.head
+            self.head = nextNode
 
 
 myList = Linkedlist()
@@ -193,3 +209,10 @@ print('avg is ', myList.getAvgValue())
 print('head is', myList.getHeadValue())
 print('Total indexs', myList.getTotalIndex())
 print('head is', myList.getHeadValue())
+
+secondList.addNode('A')
+secondList.addNode('B')
+secondList.addNode('C')
+secondList.addNode('D')
+secondList.reverse()
+secondList.printList()
