@@ -18,7 +18,6 @@ def compareTriplets(a, b):
             bobPoints += 1
     return [alicePoints, bobPoints]
 
-
 def miniMaxSum(arr):
     min = arr[0]
     max = arr[0]
