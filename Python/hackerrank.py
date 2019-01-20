@@ -34,3 +34,11 @@ def miniMaxSum(arr):
     minSum = totalSum - max
     maxSum = totalSum - min
     print(f'{minSum} {maxSum}')
+
+
+def extraLongFactorials(n):
+    arr = [0] * n
+    arr[0] = 1
+    for i in range(1, n):
+        arr[i] = (i + 1) * arr[i-1]
+    return arr[n-1]

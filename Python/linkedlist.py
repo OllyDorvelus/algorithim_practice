@@ -182,6 +182,23 @@ class Linkedlist:
             prevNode = self.head
             self.head = nextNode
 
+    def reverseWithStack(self):
+        if self.isEmpty():
+            print("List is empty")
+            return
+        oldHeadNode = self.head
+        currentNode = self.head
+        stack = []
+        while currentNode:
+            stack.append(currentNode)
+            currentNode = currentNode.next
+        oldHeadNode.next = None
+        self.head = stack.pop()
+        currentNode = self.head
+        while len(stack) > 0:
+            currentNode.next = stack.pop()
+            currentNode = currentNode.next
+
 
 myList = Linkedlist()
 secondList = Linkedlist()
@@ -193,7 +210,7 @@ myList.addNode(20)
 myList.addNode(30)
 myList.addNode(40)
 myList.addNode(50)
-
+myArr = [2, 3]
 # myList.addNodeBeforeValue(100, 10)
 # myList.addNodeAtIndex(200, 2)
 # myList.addNodeAtIndex(500, 6)
@@ -215,4 +232,6 @@ secondList.addNode('B')
 secondList.addNode('C')
 secondList.addNode('D')
 secondList.reverse()
+secondList.printList()
+secondList.reverseWithStack()
 secondList.printList()

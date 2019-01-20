@@ -15,6 +15,9 @@ class BinaryTree:
     def isEmpty(self):
         return self.root is None
 
+    def isLeaf(self, node):
+        return node.right is None and node.left is None
+
     def getRootValue(self):
         return self.root.data
 
