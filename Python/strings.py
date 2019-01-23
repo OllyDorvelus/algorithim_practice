@@ -13,6 +13,21 @@ def count_substring(string, substring):
     return count
 
 
+def reverse(string):
+    char_arr = list(string)
+    start = 0
+    end = len(char_arr) - 1
+    print(char_arr)
+    while(start < end):
+        char_arr[start], char_arr[end] = char_arr[end], char_arr[start]
+        end -= 1
+        start += 1
+    return "".join(char_arr)
+
+
+print(reverse("below"), "below")
+
+
 def split_and_join(line):
     strings = line.split(" ")
     joined_string = ("-").join(strings)
