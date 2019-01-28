@@ -78,8 +78,75 @@ def mergesort(arr):
     return merge(leftarr, rightarr)
 
 
+def partition(arr, start_index, end_index):
+    pivot = start_index
+    border_index = start_index
+    for i in range(start_index, end_index + 1):
+        if arr[i] < arr[pivot]:
+            border_index += 1
+            arr[i], arr[border_index] = arr[border_index], arr[i]
+    print(arr[border_index])
+    arr[pivot], arr[border_index] = arr[border_index], arr[pivot]
+    return border_index
+
+
+def quicksort(arr, start_index, end_index):
+    if start_index < end_index:
+        pivot = partition(arr, start_index, end_index)
+        quicksort(arr, start_index, pivot - 1)
+        quicksort(arr, pivot + 1, end_index)
+
+
+def linearSearch(arr, searchItem):
+    for item in arr:
+        if item == searchItem:
+            return item
+    return False
+
+
+def binarySearch(arr, searchItem):
+    lowIndex = 0
+    highIndex = len(arr) - 1
+    while(lowIndex <= highIndex):
+        middleIndex = (highIndex + lowIndex) // 2
+        if arr[middleIndex] > searchItem:
+            highIndex = middleIndex - 1
+        elif arr[middleIndex] < searchItem:
+            lowIndex = middleIndex + 1
+        else:
+            return arr[middleIndex]
+    return False
+
+
 arr_1 = [5, 6, 30, 100]
 arr_2 = [2, 7, 15]
 print(arr)
 print(mergesort(arr))
 print(arr)
+arr_3 = [n*5 for n in range(1, 11)]
+arr_4 = [n*10 for n in arr_3]
+print(arr_3)
+print(arr_4)
+print(binarySearch(arr_3, 50))
+
+arr_5 = [17, 41, 5, 22, 54, 6, 29, 3, 13]
+quicksort(arr_5, 0, len(arr_5) - 1)
+print(arr_5)
+# partition(arr_5, 0, len(arr_5) - 1)
+# print(arr_5)
+# partition(arr_5, 0, 3)
+# print(arr_5)
+# partition(arr_5, 0, 2)
+# print(arr_5)
+# partition(arr_5, 0, 1)
+# print(arr_5)
+# partition(arr_5, 0, 0)
+# print(arr_5)
+# partition(arr_5, 5, 8)
+# print(arr_5)
+# partition(arr_5, 6, 8)
+# print(arr_5)
+# partition(arr_5, 7, 8)
+# print(arr_5)
+# partition(arr_5, 8, 8)
+# print(arr_5)
