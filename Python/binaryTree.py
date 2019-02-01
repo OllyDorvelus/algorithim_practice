@@ -108,6 +108,15 @@ class BinaryTree:
                 return currentNode.data
         return False
 
+    def get_level(self, root, data):
+        if data == root.data:
+            return 1
+        if self.root.left:
+            return self.get_level(self.root.left, data) + 1
+        elif self.root.right:
+            return self.get_level(self.root.right, data) + 1
+        return 0
+
 
 my_tree = BinaryTree()
 # print(my_tree.isEmpty())
@@ -121,3 +130,4 @@ my_tree.addNode(45)
 print(my_tree.getHeight(my_tree.root))
 # my_tree.postOrder(my_tree.root)
 my_tree.bredthFirst()
+print(my_tree.get_level(my_tree.root, 75))

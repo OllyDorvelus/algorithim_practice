@@ -53,3 +53,8 @@ print(my_hash.get("apple"))
 arr2 = []
 arr2.append(3000)
 print(arr2[0])
+
+new_dict = {}
+new_dict['sample'] = ['cat']
+print(new_dict['sample'])
+new_dict['sample'] += ['act']

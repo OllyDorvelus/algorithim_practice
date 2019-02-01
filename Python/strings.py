@@ -116,3 +116,92 @@ print(capitalize("chris alan"))
 ex = 'BANANA'
 
 minion_game(ex)
+
+
+def longest_sub_string(s):
+    hash_map = {}
+    max = 0
+    count = 0
+    clash_index = 0
+    for i in range(0, len(s)):
+        if s[i] in hash_map:
+            if clash_index < hash_map[s[i]]:
+                clash_index = hash_map[s[i]]
+            count = i - clash_index
+            hash_map[s[i]] = i
+        else:
+            hash_map[s[i]] = i
+            count += 1
+        if count > max:
+            max = count
+    return max
+
+
+def is_palindrome(s):
+    start_index = 0
+    end_index = len(s) - 1
+    while(start_index <= end_index):
+        if(s[start_index] != s[end_index]):
+            return False
+        start_index += 1
+        end_index -= 1
+    return True
+
+
+def pop(stack):
+    if stack:
+        return stack.pop()
+    return None
+
+
+def balance_parentheses(s):
+    stack_arr = []
+    for char in s:
+        if char in ['(', '{', '[']:
+            stack_arr.append(char)
+        if char == ')' and pop(stack_arr) != '(':
+            return False
+        elif char == '}' and pop(stack_arr) != '{':
+            return False
+        elif char == ']' and pop(stack_arr) != '[':
+            return False
+
+    if stack_arr:
+        return False
+    return True
+
+
+ones_arr = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+            'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+
+tens_arr = ['', '', 'twenty', 'thirty', 'forty',
+            'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
+
+hundreds_arr = ['', 'one-hundred', 'two-hundred',
+                'three-hundred', 'four-hundred', 'five-hundred', 'six-hundred', 'seven-hundred', 'eight-hundred', 'nine-hundred']
+
+
+def number_to_word(n):
+    empty_string = ''
+    dash_string = ' '
+    if 0 <= n < 20:
+        return ones_arr[n]
+    elif 20 <= n < 100:
+        return f'{tens_arr[n // 10]}{dash_string + ones_arr[n % 10] if n % 10 != 0 else empty_string}'
+    elif 100 <= n < 1000:
+        return f'{hundreds_arr[n // 100]}{dash_string + tens_arr[n % 100 // 10] if n % 100 != 0 else empty_string}{dash_string + ones_arr[n % 100 % 10] if n % 100 % 10 != 0 else empty_string}'
+
+
+print(balance_parentheses(')))'), 'balance')
+print(len("") - 1)
+print(is_palindrome(""), 'palindrome')
+print(longest_sub_string('abcdaf'))
+print(longest_sub_string('abcc'))
+print('\n')
+print(longest_sub_string('abba'))
+print(longest_sub_string('abcabcbb'))
+for i in range(0, 1000):
+    print(number_to_word(i))
+# print(number_to_word(17))
+# print(number_to_word(20))
+# print(number_to_word(999))

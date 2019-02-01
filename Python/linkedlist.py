@@ -199,6 +199,16 @@ class Linkedlist:
             currentNode.next = stack.pop()
             currentNode = currentNode.next
 
+    def reverseBest(self):
+        currentNode = self.head
+        prevNode = None
+        while currentNode is not None:
+            tempNext = currentNode.next
+            currentNode.next = prevNode
+            prevNode = currentNode
+            currentNode = tempNext
+        self.head = prevNode
+
 
 myList = Linkedlist()
 secondList = Linkedlist()
@@ -231,7 +241,15 @@ secondList.addNode('A')
 secondList.addNode('B')
 secondList.addNode('C')
 secondList.addNode('D')
-secondList.reverse()
+# secondList.reverse()
+# secondList.printList()
+# secondList.reverseWithStack()
+# secondList.printList()
 secondList.printList()
-secondList.reverseWithStack()
+secondList.reverseBest()
 secondList.printList()
+new_dict = {}
+new_dict['a'] = 0
+print(new_dict['a'])
+if('a' in new_dict):
+    print('okay')
