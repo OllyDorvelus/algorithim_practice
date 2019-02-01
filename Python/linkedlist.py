@@ -209,6 +209,19 @@ class Linkedlist:
             currentNode = tempNext
         self.head = prevNode
 
+    def skip_arrange(self):
+        currentNode = self.head
+        connectionNode = currentNode.next
+        runnerNode = connectionNode
+        while(runnerNode != None):
+            tempNext = currentNode.next
+            runnerNode = runnerNode.next
+            currentNode.next = runnerNode
+            currentNode = tempNext
+            if currentNode.next is None:
+                currentNode.next = connectionNode
+            # print(f'{currentNode.data} {runnerNode.data}')
+
 
 myList = Linkedlist()
 secondList = Linkedlist()
@@ -253,3 +266,19 @@ new_dict['a'] = 0
 print(new_dict['a'])
 if('a' in new_dict):
     print('okay')
+
+newList = Linkedlist()
+newList.addNode(1)
+newList.addNode(2)
+newList.addNode(3)
+newList.addNode(4)
+newList.addNode(5)
+newList.addNode(6)
+newList.addNode(7)
+newList.addNode(8)
+newList.addNode(9)
+print('\n')
+newList.printList()
+newList.skip_arrange()
+print('\n')
+newList.printList()
