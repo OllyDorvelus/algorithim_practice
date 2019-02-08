@@ -27,7 +27,7 @@ class Linkedlist:
     def getLength(self):
         length = 0
         currentNode = self.head
-        while currentNode is not None:
+        while currentNode:
             length = length + 1
             currentNode = currentNode.next
         return length
@@ -220,7 +220,120 @@ class Linkedlist:
             currentNode = tempNext
             if currentNode.next is None:
                 currentNode.next = connectionNode
-            # print(f'{currentNode.data} {runnerNode.data}')
+
+    @classmethod
+    def addList(cls, list1, list2):
+        stack1 = []
+        stack2 = []
+        cur_node1 = list1.head
+        cur_node2 = list2.head
+        new_list = Linkedlist()
+        carry = 0
+        while cur_node1:
+            stack1.append(cur_node1.data)
+            cur_node1 = cur_node1.next
+        while cur_node2:
+            stack2.append(cur_node2.data)
+            cur_node2 = cur_node2.next
+        length_tracker = greater_length_stack(stack1, stack2)
+        while stack1 or stack2:
+            if length_tracker == 1:
+                sum = (custom_pop(stack1) + custom_pop(stack2) + carry)
+                result = sum % 10
+                new_list.addToFront(result)
+                if sum > 9:
+                    new_list.addToFront(sum // 10)
+            else:
+                sum = (custom_pop(stack1) + custom_pop(stack2) + carry)
+                result = sum % 10
+                carry = sum // 10
+                new_list.addToFront(result)
+                length_tracker -= 1
+        return new_list
+
+    @classmethod
+    def addListReverse(cls, list1, list2):
+        cur_node1 = list1.head
+        cur_node2 = list2.head
+        carry = 0
+        new_list = Linkedlist()
+        greatest_length = greatest_length_list(list1, list2)
+        while cur_node1 or cur_node2:
+            if greatest_length == 1:
+                sum = (get_cur_value(cur_node1) +
+                       get_cur_value(cur_node2)) + carry
+                result = sum % 10
+                new_list.addToFront(result)
+                if sum > 9:
+                    new_list.addToFront(sum // 10)
+            else:
+                sum = (get_cur_value(cur_node1) +
+                       get_cur_value(cur_node2)) + carry
+                result = sum % 10
+                carry = sum // 10
+                new_list.addToFront(result)
+                greatest_length -= 1
+            if cur_node1:
+                cur_node1 = cur_node1.next
+            if cur_node2:
+                cur_node2 = cur_node2.next
+        return new_list
+
+    @classmethod
+    def merge_list(cls, list1, list2):
+        #  length = greatest_length_list(list1, list2)
+        cur_node1 = list1.head
+        cur_node2 = list2.head
+        new_list = Linkedlist()
+        while cur_node1 and cur_node2:
+            if cur_node1.data <= cur_node2.data:
+                new_list.addNode(cur_node1.data)
+                cur_node1 = cur_node1.next
+            else:
+                new_list.addNode(cur_node2.data)
+                cur_node2 = cur_node2.next
+        while cur_node1:
+            new_list.addNode(cur_node1.data)
+            cur_node1 = cur_node1.next
+        while cur_node2:
+            new_list.addNode(cur_node2.data)
+            cur_node2 = cur_node2.next
+        return new_list
+
+    @classmethod
+    def merge_arr_list(cls, linkedlist_arr):
+        merge = cls.merge_list(linkedlist_arr[0], linkedlist_arr[1])
+        for i in range(2, len(linkedlist_arr)):
+            merge = cls.merge_list(merge, linkedlist_arr[i])
+        return merge
+
+
+def greatest_length_list(list1, list2):
+    length1 = list1.getLength()
+    length2 = list2.getLength()
+    if length1 >= length2:
+        return length1
+    else:
+        return length2
+
+
+def get_cur_value(node):
+    if node is None:
+        return 0
+    return node.data
+
+
+def custom_pop(stack):
+    if len(stack) != 0:
+        return stack.pop()
+    return 0
+
+
+def greater_length_stack(stack1, stack2):
+    if len(stack1) >= len(stack2):
+        return len(stack1)
+    else:
+        return len(stack2)
 
 
 myList = Linkedlist()
@@ -282,3 +395,50 @@ newList.printList()
 newList.skip_arrange()
 print('\n')
 newList.printList()
+
+first_sum = Linkedlist()
+first_sum.addNode(9)
+first_sum.addNode(9)
+# first_sum.addNode(3)
+# first_sum.addNode(4)
+
+
+second_sum = Linkedlist()
+second_sum.addNode(5)
+second_sum.addNode(5)
+# second_sum.addNode(7)
+f1 = Linkedlist()
+f2 = Linkedlist()
+f1.addNode(1)
+f1.addNode(2)
+f1.addNode(3)
+f2.addNode(4)
+f2.addNode(5)
+f2.addNode(8)
+f2.addNode(9)
+resulant_sum = Linkedlist.addList(first_sum, second_sum)
+resulant_sum2 = Linkedlist.addListReverse(f1, f2)
+print('\n')
+# resulant_sum.printList()
+print('\n')
+resulant_sum2.printList()
+merge1 = Linkedlist()
+merge1.addNode(1)
+merge1.addNode(3)
+merge1.addNode(5)
+
+merge2 = Linkedlist()
+merge2.addNode(2)
+merge2.addNode(4)
+merge2.addNode(6)
+print('\n')
+merge3 = Linkedlist()
+merge3.addNode(0)
+merge3.addNode(10)
+merge3.addNode(100)
+#merged = Linkedlist.merge_list(merge1, merge2)
+merged = Linkedlist.merge_arr_list([merge1, merge2, merge3])
+merged.printList()
+
+for i in range(2, 3):
+    print('wooo')

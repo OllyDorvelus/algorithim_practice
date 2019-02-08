@@ -183,13 +183,13 @@ hundreds_arr = ['', 'one-hundred', 'two-hundred',
 
 def number_to_word(n):
     empty_string = ''
-    dash_string = ' '
+    space_stirng = ' '
     if 0 <= n < 20:
         return ones_arr[n]
     elif 20 <= n < 100:
-        return f'{tens_arr[n // 10]}{dash_string + ones_arr[n % 10] if n % 10 != 0 else empty_string}'
+        return f'{tens_arr[n // 10]}{space_stirng + ones_arr[n % 10] if n % 10 != 0 else empty_string}'
     elif 100 <= n < 1000:
-        return f'{hundreds_arr[n // 100]}{dash_string + tens_arr[n % 100 // 10] if n % 100 != 0 else empty_string}{dash_string + ones_arr[n % 100 % 10] if n % 100 % 10 != 0 else empty_string}'
+        return f'{hundreds_arr[n // 100]}{space_stirng + tens_arr[n % 100 // 10] if n % 100 != 0 else empty_string}{space_stirng + ones_arr[n % 100 % 10] if n % 100 % 10 != 0 else empty_string}'
 
 
 print(balance_parentheses(')))'), 'balance')
